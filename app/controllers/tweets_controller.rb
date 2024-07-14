@@ -42,6 +42,13 @@ class TweetsController < ApplicationController
     end
   end
 
+  if @tweet.save
+    TweetMailer.notify(@tweet).deliver! # invoke TweetMailer to send out the email when a tweet is successfully posted
+    render 'tweets/create'
+    end
+  end
+
+
   private
 
   def tweet_params
