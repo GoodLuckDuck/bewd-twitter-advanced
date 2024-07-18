@@ -36,18 +36,11 @@ class TweetsController < ApplicationController
   def index_by_user
     user = User.find_by(username: params[:username])
 
-    if user
-      @tweets = user.tweets
-      render 'tweets/index'
-    end
-  end
+    return unless user
 
-  if @tweet.save
-    TweetMailer.notify(@tweet).deliver! # invoke TweetMailer to send out the email when a tweet is successfully posted
-    render 'tweets/create'
-    end
+    @tweets = user.tweets
+    render 'tweets/index'
   end
-
 
   private
 
